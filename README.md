@@ -1,12 +1,37 @@
-# React + Vite
+# GreenPath Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is the frontend of the **GreenPath** application, a React and .Net fullstack app built for home plant management. 
+The front-end app uses **React**,  **Tailwind CSS**, and **React Router** for a modern and responsive user interface while communicating with the **MongoDb** database through **Greenapth API**.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
+- **Authentication**: Includes login and registration forms with an icon picker.
+- **Feature-Based Structure**: Encapsulated components, APIs, and assets for better maintainability.
+- **Responsive Design**: Built with Tailwind CSS for a fully responsive UI.
+- **Routing**: Uses React Router for navigation between pages.
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Installation
+
+### Prerequisites
+- Node.js (v16 or higher)
+- npm (v7 or higher)
+
+### Steps
+1. Clone the repository:
+   ```bash
+   git clone <repository-url>
+   cd GreenPath-front
+   ```
+2. Install dependencies:
+   ```bash
+    npm install
+   ```
+3. Start the development server
+   ```bash
+    npm run dev
+   ```
+4. Open the app in your local browser
+   http://localhost: *port number*
