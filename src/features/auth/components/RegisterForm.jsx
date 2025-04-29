@@ -1,5 +1,7 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom"; // Import useNavigate
 import { register } from "../api/authApi";
+import { Link } from "react-router-dom";
 
 import icon1 from "../assets/icon1.jpg";
 import icon2 from "../assets/icon2.jpg";
@@ -8,140 +10,194 @@ import icon3 from "../assets/icon3.jpg";
 function RegisterForm() {
   const [email, setEmail] = useState("");
   const [nickname, setNickname] = useState("");
-  const [icon_url, setIconUrl] = useState("pfp.jpg");
+  const [iconurl, setIconUrl] = useState("pfp.jpg");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
   const [isIconMenuOpen, setIsIconMenuOpen] = useState(false);
+  const [successMessage, setSuccessMessage] = useState("Registration successful!");
+  const navigate = useNavigate(); // Assuming you're using react-router-dom for navigation
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    // Validation logic
+    if (!email.includes("@")) {
+      setError("Please enter a valid email address.");
+      return;
+    }
+
+    if (password.length < 5) {
+      setError("Password must be at least 5 characters long.");
+      return;
+    }
     try {
-      const data = await register({ nickname, email, password, icon_url });
-      console.log("Login successful:", data);
+      const data = await register({ nickname, email, password, iconurl });
+      setSuccessMessage("Registration successful!"); // Set success message
+      // Redirect to /login after a short delay
+      setTimeout(() => {
+        navigate("/login");
+      }, 2000); // 2-second delay
     } catch (err) {
       setError(err.message);
     }
   };
 
   return (
-    <div className="h-screen bg-gray-100 dark:bg-gray-900 flex items-center justify-center">
-      <div className="w-full max-w-4xl bg-white dark:bg-gray-800 shadow-lg rounded-lg overflow-hidden">
-        <div className="flex flex-col lg:flex-row">
-          {/* Left Image Section */}
-          <div
-            className="hidden lg:block lg:w-1/2 bg-cover"
-            style={{
-              backgroundImage:
-                "url('https://images.unsplash.com/photo-1501004318641-b39e6451bec6?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cGxhbnRlfGVufDB8fDB8fHww')",
-            }}
-          ></div>
-
-          {/* Form Section */}
-          <div className="w-full lg:w-1/2 p-8">
-            <h3 className="text-2xl font-bold text-center text-gray-800 dark:text-white mb-6">
-              Create an Account!
-            </h3>
-            <form onSubmit={handleSubmit} className="space-y-6">
-              {/* Email Input */}
+    <section className="bg-gray-50 dark:bg-gray-900">
+      <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+        <a
+          href="#"
+          className="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white"
+        ></a>
+        <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+          <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
+            <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
+              Create an account
+            </h1>
+            <form className="space-y-4 md:space-y-6">
               <div>
-                <label className="block text-sm font-bold text-gray-700 dark:text-white">
-                  Email
+                <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                  Your email
                 </label>
                 <input
-                  className="w-full px-4 py-2 mt-2 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 dark:bg-gray-700 dark:text-white"
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  placeholder="john@doe@mail.com"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  placeholder="name@company.com"
+                  required
                 />
               </div>
-
-              {/* Password Input */}
               <div>
-                <label className="block text-sm font-bold text-gray-700 dark:text-white">
+                <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                   Password
                 </label>
                 <input
-                  className="w-full px-4 py-2 mt-2 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 dark:bg-gray-700 dark:text-white"
                   type="password"
+                  placeholder="••••••••"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  placeholder="******************"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  required
                 />
               </div>
-
-              {/* Nickname Input */}
               <div>
-                <label className="block text-sm font-bold text-gray-700 dark:text-white">
+                <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                   Nickname
                 </label>
                 <input
-                  className="w-full px-4 py-2 mt-2 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 dark:bg-gray-700 dark:text-white"
-                  type="text"
+                  placeholder="Joe Pecci"
                   value={nickname}
                   onChange={(e) => setNickname(e.target.value)}
-                  placeholder="Your nickname"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  required=""
                 />
               </div>
-
-              {/* Icon Selector */}
-              <div>
-                <label className="block text-sm font-bold text-gray-700 dark:text-white">
-                  Icon
-                </label>
-                <div className="relative">
-                  <button
-                    type="button"
-                    className="w-full px-4 py-2 mt-2 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 dark:bg-gray-700 dark:text-white flex items-center justify-between"
-                    onClick={() => setIsIconMenuOpen(!isIconMenuOpen)}
+              <div className="inline-flex items-center justify-between w-full">
+                <button
+                  id="dropdownUsersButton"
+                  data-dropdown-toggle="dropdownUsers"
+                  data-dropdown-placement="bottom"
+                  className="text-black bg-gray-50 border border-gray-300 focus:outline-none focus:ring-white-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                  type="button"
+                  onClick={() => setIsIconMenuOpen(!isIconMenuOpen)}
+                >
+                  Choose profile picture{" "}
+                  <svg
+                    className="w-2.5 h-2.5 ms-3"
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 10 6"
                   >
-                    <span>Choose an Icon</span>
-                    <img
-                      src={icon_url}
-                      alt="Selected Icon"
-                      className="h-8 w-8 rounded-full border ml-2"
+                    <path
+                      stroke="currentColor"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="m1 1 4 4 4-4"
                     />
-                  </button>
-                  {isIconMenuOpen && (
-                    <div className="absolute z-10 mt-2 w-full bg-white dark:bg-gray-700 border rounded-lg shadow-lg">
-                      <div className="flex justify-around p-4">
-                        {[icon1, icon2, icon3].map((icon, index) => (
-                          <img
-                            key={index}
-                            src={icon}
-                            alt={`Icon ${index + 1}`}
-                            className={`h-12 w-12 cursor-pointer border-2 rounded-full ${
-                              icon_url === icon
-                                ? "border-green-600"
-                                : "border-gray-300"
-                            }`}
-                            onClick={() => {
-                              setIconUrl(icon);
-                              setIsIconMenuOpen(false); // Close menu after selection
-                            }}
-                          />
-                        ))}
-                      </div>
-                    </div>
-                  )}
-                </div>
+                  </svg>
+                </button>
+                <img src={iconurl} className="w-10 h-10 rounded-full" />
               </div>
+              {isIconMenuOpen && (
+                <div
+                  id="dropdownUsers"
+                  className="absolute bg-white rounded-lg shadow-sm dark:bg-gray-700"
+                >
+                  <ul
+                    className="grid grid-cols-3 h-48 py-2 overflow-y-auto text-gray-700 dark:text-gray-200"
+                    aria-labelledby="dropdownUsersButton"
+                  >
+                    {[
+                      icon1,
+                      icon2,
+                      icon3,
+                      icon1,
+                      icon2,
+                      icon3,
+                      icon1,
+                      icon2,
+                      icon3,
+                    ].map((icon, index) => (
+                      <li key={index}>
+                        <a
+                          onClick={() => {
+                            setIconUrl(icon);
+                            setIsIconMenuOpen(false);
+                          }}
+                          className="flex items-center px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                        >
+                          <img
+                            className="w-6 h-6 me-2 rounded-full"
+                            src={icon}
+                          />
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
 
-              {/* Error Message */}
-              {error && <p className="text-red-500 text-sm">{error}</p>}
-
-              {/* Submit Button */}
               <button
-                type="submit"
-                className="w-full px-4 py-2 text-white bg-green-600 rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500"
+                type="button"
+                onClick={(e) => handleSubmit(e)}
+                disabled={
+                  !/^[\w-\.+]+@([\w-]+\.)+[\w-]{2,4}$/.test(email) ||
+                  password.length < 5 ||
+                  nickname.length < 3
+                } // Disable button if conditions are not met
+                className={`w-full text-white font-medium rounded-lg text-sm px-5 py-2.5 text-center focus:outline-none focus:ring-4 
+                  ${
+                    /^[\w-\.+]+@([\w-]+\.)+[\w-]{2,4}$/.test(email) &&
+                    password.length >= 5 &&
+                    nickname.length >= 3
+                      ? "bg-primary-600 hover:bg-primary-700 focus:ring-primary-300"
+                      : "bg-gray-400 cursor-not-allowed"
+                  }`}
               >
-                Register Account
+                Create an account
               </button>
+              <p className="text-sm font-light text-gray-500 dark:text-gray-400">
+                Already have an account?{" "}
+                <Link
+                  to="/login"
+                  className="font-medium text-primary-600 hover:underline dark:text-primary-500"
+                >
+                  Login here
+                </Link>
+              </p>
             </form>
           </div>
         </div>
       </div>
-    </div>
+      {/* Success Message */}
+      { (
+        <div className="fixed bottom-6 right-6 bg-green-500 text-white px-6 py-2 rounded-lg shadow-lg">
+          {successMessage}
+        </div>
+      )}
+    </section>
   );
 }
 

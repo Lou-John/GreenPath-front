@@ -37,7 +37,7 @@ function LoginForm() {
         />
       </div>
       {error && <p className="text-red-500">{error}</p>}
-      <button type="submit" className="bg-green-600 text-white p-2">
+      <button onClick={(e) => handleSubmit(e)} className="bg-green-600 text-white p-2">
         Login
       </button>
     </form>

@@ -1,1 +1,76 @@
 @import "tailwindcss";
+/* Import Tailwind */
+@import "tailwindcss/utilities";
+
+/* Extend Tailwind's utilities */
+@layer utilities {
+  /* Custom primary color palette */
+  .bg-primary-50 {
+    background-color: #ecfdf5;
+  }
+  .bg-primary-100 {
+    background-color: #d1fae5;
+  }
+  .bg-primary-200 {
+    background-color: #a7f3d0;
+  }
+  .bg-primary-300 {
+    background-color: #6ee7b7;
+  }
+  .bg-primary-400 {
+    background-color: #34d399;
+  }
+  .bg-primary-500 {
+    background-color: #10b981;
+  }
+  .bg-primary-600 {
+    background-color: #059669;
+  }
+  .bg-primary-700 {
+    background-color: #047857;
+  }
+  .bg-primary-800 {
+    background-color: #065f46;
+  }
+  .bg-primary-900 {
+    background-color: #064e3b;
+  }
+  .bg-primary-950 {
+    background-color: #022c22;
+  }
+
+  /* Text colors */
+  .text-primary-50 {
+    color: #ecfdf5;
+  }
+  .text-primary-100 {
+    color: #d1fae5;
+  }
+  .text-primary-200 {
+    color: #a7f3d0;
+  }
+  .text-primary-300 {
+    color: #6ee7b7;
+  }
+  .text-primary-400 {
+    color: #34d399;
+  }
+  .text-primary-500 {
+    color: #10b981;
+  }
+  .text-primary-600 {
+    color: #059669;
+  }
+  .text-primary-700 {
+    color: #047857;
+  }
+  .text-primary-800 {
+    color: #065f46;
+  }
+  .text-primary-900 {
+    color: #064e3b;
+  }
+  .text-primary-950 {
+    color: #022c22;
+  }
+}
