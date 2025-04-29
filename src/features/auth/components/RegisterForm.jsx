@@ -192,8 +192,8 @@ function RegisterForm() {
         </div>
       </div>
       {/* Success Message */}
-      { (
-        <div className="fixed bottom-6 right-6 bg-green-500 text-white px-6 py-2 rounded-lg shadow-lg">
+      {successMessage && (
+        <div className="fixed bottom-6 right-6 bg-green-500 text-white px-10 py-6 rounded-lg shadow-lg text-lg font-bold">
           {successMessage}
         </div>
       )}
